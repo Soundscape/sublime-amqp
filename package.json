@@ -1,6 +1,6 @@
 {
   "name": "sublime-amqp",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Isomorphic communication libray that currently provides AMQP functionality via RabbitMQ.",
   "main": "./out/index",
   "scripts": {

@@ -53,7 +53,16 @@ states =
 
       return
 
+# Provides a STOMP enabled RabbitMQ interface for publish and subscribe
 class Queue extends Core.Stateful
+  # Construct a new Queue
+  #
+  # @param [String] user The username
+  # @param [String] password The password
+  # @param [String] host The hostname
+  # @param [Integer] port The port
+  # @param [String] protocol The protocol to use ws/http
+  # @param [String] vhost The vhost
   constructor: (user, password, host, port, protocol, vhost) ->
     super(states)
 
@@ -66,18 +75,32 @@ class Queue extends Core.Stateful
 
     @channels = {}
 
+  # Connect to the server
   connect: () ->
     @.apply 'connect', @
 
+  # Disconnect from the server
   disconnect: () ->
     @.apply 'disconnect', @
 
+  # Subscribe to a channel
+  #
+  # @param [String] channel The name of the channel
+  # @param [Function] fn The function to handle inbound messages
   subscribe: (channel, fn) ->
     @.apply 'subscribe', @, channel, fn
 
+  # Unsubscribe from a channel
+  #
+  # @param [String] channel The name of the channel
+  # @param [Function] fn The specific handler to unsubscribe
   unsubscribe: (channel, fn) ->
     @.apply 'unsubscribe', @, channel, fn
 
+  # Publish a message to a channel
+  #
+  # @param [String] channel The name of the channel
+  # @param [Object] payload The message payload
   publish: (channel, payload) ->
     @.apply 'publish', @, channel, payload
 
