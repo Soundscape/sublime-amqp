@@ -6,7 +6,7 @@ states =
   disconnected:
     connect: (inst) ->
       sock = shoe("#{inst.protocol}://#{inst.host}:#{inst.port}/stomp").sock
-      inst.client = if inst.node then Stomp.overTCP(inst.host, inst.port)
+      inst.client = if inst.node and typeof window == 'undefined' then Stomp.overTCP(inst.host, inst.port)
       else Stomp.over sock
 
       inst.client.connect inst.user, inst.password, () =>
